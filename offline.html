@@ -35,6 +35,8 @@
             var element = document.getElementById("map");
             var map;
             var zoomParameter = 8;
+            var marker;
+	    var myCenter = new google.maps.LatLng(11.1271225, 78.65689420000001);
 
             function initialize() {
                 var mapTypeIds = [];
@@ -44,7 +46,7 @@
                 mapTypeIds.push("GoogleRoadMaps");
 
                 map = new google.maps.Map(element, {
-                    center: new google.maps.LatLng(11.781182367981662, 80.41697389316414),
+                    center: myCenter,
                     zoom: 8,
                     mapTypeId: "GoogleRoadMaps",
                     mapTypeControlOptions: {
@@ -61,6 +63,21 @@
                     name: "GoogleRoadMaps",
                     maxZoom: 16
                 }));
+                
+                marker = new google.maps.Marker({
+					position:myCenter,
+				});
+				
+				marker.setMap(map);
+				
+				var infowindow = new google.maps.InfoWindow({
+					content:"<b>You are here!</b>"
+				});
+
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map,marker);
+				});
+                
                 }
                 </script>
     </body>
